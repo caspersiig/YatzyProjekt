@@ -1,46 +1,46 @@
 /*css kode ahead be scared*/
 
 body {
-    background-color: #454545;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin: 2rem;
 }
 
-img {
-    border-radius: 0.5rem;
-}
-
+/*big conainer der holder alt*/
 .grid-container {
     display: grid;
-    width: 50%;
-    grid-template-areas: "terning terning terning terning terning"
-        "turn roll roll";
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 50%);
 
 }
 
-.turn {
-    grid-area: turn;
-}
-
-.roll {
-    grid-area: roll;
-}
-
+/*header top delen*/
 .terninger {
-    justify-content: center;
-    display: flex;
-    outline: 0.2rem solid;
-    margin-bottom: 2rem;
-}
-
-.spillet {
-    outline: 0.2rem solid;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    outline: 5px solid;
 
 }
 
 .terning {
-    grid-area: terning;
-    padding: 0.7rem;
-    height: 10%;
-    width: 10%;
+    margin: 0.2rem;
+}
+
+img {
+    border-radius: 10%;
+}
+
+#roll {
+    margin: 0.5rem;
+    grid-column: 4/ span 2;
+}
+
+#turn {
+    margin-left: +.5rem;
+}
+
+/*spil spillet delen*/
+.spillet {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    outline: 5px solid;
+    margin-top: 1rem;
 }
