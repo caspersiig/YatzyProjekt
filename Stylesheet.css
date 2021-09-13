@@ -1,0 +1,46 @@
+/*css kode ahead be scared*/
+
+body {
+    background-color: #454545;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+img {
+    border-radius: 0.5rem;
+}
+
+.grid-container {
+    display: grid;
+    width: 50%;
+    grid-template-areas: "terning terning terning terning terning"
+        "turn roll roll";
+
+}
+
+.turn {
+    grid-area: turn;
+}
+
+.roll {
+    grid-area: roll;
+}
+
+.terninger {
+    justify-content: center;
+    display: flex;
+    outline: 0.2rem solid;
+    margin-bottom: 2rem;
+}
+
+.spillet {
+    outline: 0.2rem solid;
+
+}
+
+.terning {
+    grid-area: terning;
+    padding: 0.7rem;
+    height: 10%;
+    width: 10%;
+}
