@@ -14,7 +14,7 @@ let randNum = () => {
 // opbevarer værdien på den givende billede 
 let øjne = null;
 
-function rollDices(paams) {
+function rollDices() {
     for (let i = 0; i < terning.length; i++) {
         øjne = randNum();
         let list = terning[i].firstChild.src = terningØjne[øjne];
@@ -39,61 +39,87 @@ function rolled() {
         console.log("ingen ture tilbage");
     }
 }
-let hasClicked = false;
+
 let bool = [false, false, false, false, false];
 function terningAction(e) {
-    if (!hasClicked) {
-    switch (e.target.id) {
-        case "1":
-            bool[0] = true;
-            hasClicked = true;
-            break;
-        case "2":
-            bool[1] = true;
-            break;
-        case "3":
-            bool[2] = true;
-            break;
-        case "4":
-            bool[3] = true;
-            break;
-        case "5":
-            bool[4] = true;
-            break;
-        default:
-            console.log("t")
-            break;
-    }
-}
+        switch (e.target.id) {
+            case "1":
+                if (!bool[0]) {
+                    bool[0] = true; 
+                } else {
+                    bool[0] = false;
+                }
+                break;
+            case "2":
+                if (!bool[1]) {
+                    bool[1] = true; 
+                } else {
+                    bool[1] = false;
+                }
+                break;
+            case "3":
+                if (!bool[2]) {
+                    bool[2] = true; 
+                } else {
+                    bool[2] = false;
+                }
+                break;
+            case "4":
+                if (!bool[3]) {
+                    bool[3] = true; 
+                } else {
+                    bool[3] = false;
+                }
+                break;
+            case "5":
+                if (!bool[4]) {
+                    bool[4] = true; 
+                } else {
+                    bool[4] = false;
+                }
+                break;
+            default:
+                console.log("t")
+                break;
+        }
     if (e.target.id == 1 && bool[0]) {
-        e.target.style.opacity = "0";
+        console.log("heyy")
+        e.target.style.opacity = "0.2";
         console.log("You clicked on: " + e.target.id);
-    } else if (hasClicked) {
-        e.target.style.opacity = "0";
-    } 
+    } else {
+        console.log("yoo")
+        e.target.style.opacity = "1";
+    }
     if (e.target.id == 2 && bool[1]) {
         e.target.style.opacity = "0.2";
         console.log("You clicked on: " + e.target.id);
+    } else {
+        e.target.style.opacity = "1";
     }
     if (e.target.id == 3 && bool[2]) {
         e.target.style.opacity = "0.2";
         console.log("You clicked on: " + e.target.id);
+    } else {
+        e.target.style.opacity = "1";
     }
     if (e.target.id == 4 && bool[3]) {
         e.target.style.opacity = "0.2";
         console.log("You clicked on: " + e.target.id);
+    } else {
+        e.target.style.opacity = "1";
     }
     if (e.target.id == 5 && bool[4]) {
         e.target.style.opacity = "0.2";
         console.log("You clicked on: " + e.target.id);
+    } else {
+        e.target.style.opacity = "1";
     }
     console.log(bool)
 }
 
-function terningOff() {}
-
 roll.addEventListener("click", rolled);
 for (let i = 0; i < terning.length; i++) {
     terning[i].addEventListener("click", terningAction);
-    terning[i].addEventListener("click", terningOff);
+    // document.getElementById("1").addEventListener("click", terningAction);
 }
+console.log(terning)
