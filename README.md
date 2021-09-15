@@ -1,5 +1,3 @@
 # YatzyProjekt
 
-Her er 3 semsters obligatoriske yatzy projekt som vi selvfølgelig selv har lavet og ikke kopiet fra nettet :^D
-
-Her en en ændring i readme'en?
+Yatzy projektet lavet af Big T og lil C
