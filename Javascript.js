@@ -12,7 +12,6 @@ for (let i = 1; i <= 15; i++) {
     element = document.createElement("input");
     element.id = i;
     element.setAttribute("readonly", "readonly")
-    element.style.marginRight = "5%"
     element.style.maxHeight = "50%"
     element.style.margin = "auto"
     element.style.maxWidth = "75%"
@@ -20,12 +19,11 @@ for (let i = 1; i <= 15; i++) {
 
     if (i == 5) {
         const div = document.createElement("div");
+        div.style.maxWidth = "100%";
         element = document.createElement("input");
         element.id = "sum";
         element.setAttribute("readonly", "readonly")
-        element.style.marginRight = "5%"
-        element.style.maxWidth = "45%"
-
+        element.style.maxWidth = "40%"
         div.style.margin = "auto"
         div.innerHTML = "<label>Sum: </label>"
         div.append(element)
@@ -40,22 +38,22 @@ for (let i = 1; i <= 15; i++) {
 
     if (i == 5) {
         const div = document.createElement("div");
+        div.style.maxWidth = "100%";
         element = document.createElement("input");
         element.id = "bonus";
         element.setAttribute("readonly", "readonly")
-        element.style.marginRight = "5%"
-        element.style.maxWidth = "45%"
-
+        element.style.maxWidth = "40%"
         div.style.margin = "auto"
         div.innerHTML = "<label>Bonus: </label>"
         div.append(element)
         spilletbody[0].append(div);
     } else if (i == 15) {
         const div = document.createElement("div");
+        div.style.maxWidth = "100%";
         element = document.createElement("input");
         element.id = "total";
         element.setAttribute("readonly", "readonly")
-        element.style.marginRight = "5%"
+     
         element.style.maxWidth = "45%"
 
         div.style.margin = "auto"
