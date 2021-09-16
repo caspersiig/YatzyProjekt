@@ -157,40 +157,40 @@ function terningAction(e) {
     }
     if (e.target.id == 1 && bool[0] || e.target.id == 2 && bool[1] || e.target.id == 3 && bool[2] || e.target.id == 4 && bool[3] || e.target.id == 5 && bool[4]) {
         e.target.style.opacity = "0.2";
-        e.target.setAttribute("selected", true);
+        // e.target.setAttribute("selected", true);
     } else {
         e.target.style.opacity = "1";
-        e.target.setAttribute("selected", false);
+       // e.target.setAttribute("selected", false);
     }
 
-    let index = e.target.id - 1;
-    if (turnValue == 1) {
-        if (e.target.getAttribute("selected") === "true") {
-            e.target.setAttribute("selected", false);
-            selectedToss[index] = toss[index];
-        } else {
-            e.target.setAttribute("selected", true);
-            // hvad skal værdien være når man fortryder sit valg? 0? und?
-            selectedToss[index] = 0;
-        }
-    } else if (turnValue == 2) {
-        if (e.target.getAttribute("selected") === "true") {
-            e.target.setAttribute("selected", false);
-            selectedToss[index] = toss[index];
-        } else {
-            e.target.setAttribute("selected", true);
-            selectedToss[index] = 0;
-        }
-    } else if (turnValue == 3) {
-        if (e.target.getAttribute("selected") === "true") {
-            e.target.setAttribute("selected", false);
-            selectedToss[index] = toss[index];
-        } else {
-            e.target.setAttribute("selected", true);
-            selectedToss[index] = 0;
-        }
-    }
-    console.log(selectedToss)
+    // let index = e.target.id - 1;
+    // if (turnValue == 1) {
+    //     if (e.target.getAttribute("selected") === "true") {
+    //         e.target.setAttribute("selected", false);
+    //         selectedToss[index] = toss[index];
+    //     } else {
+    //         e.target.setAttribute("selected", true);
+    //         // hvad skal værdien være når man fortryder sit valg? 0? und?
+    //         selectedToss[index] = 0;
+    //     }
+    // } else if (turnValue == 2) {
+    //     if (e.target.getAttribute("selected") === "true") {
+    //         e.target.setAttribute("selected", false);
+    //         selectedToss[index] = toss[index];
+    //     } else {
+    //         e.target.setAttribute("selected", true);
+    //         selectedToss[index] = 0;
+    //     }
+    // } else if (turnValue == 3) {
+    //     if (e.target.getAttribute("selected") === "true") {
+    //         e.target.setAttribute("selected", false);
+    //         selectedToss[index] = toss[index];
+    //     } else {
+    //         e.target.setAttribute("selected", true);
+    //         selectedToss[index] = 0;
+    //     }
+    // }
+    // console.log(selectedToss)
 }
 
 roll.addEventListener("click", rolled);
