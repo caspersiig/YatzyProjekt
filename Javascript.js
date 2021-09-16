@@ -1,4 +1,5 @@
 const spilletbody = document.getElementsByClassName("spillet")
+//<--- GUI KODE! --->//
 //skriver teksten til labelsne i spillet boxen
 const stringArray = ["1-s", "2-s", "3-s", "4-s", "5-s", "6-s", "One pair", "Two pairs", "Three same", "Four same", "Full house", "Small straight", "Large straight", "Chance", "Yazty"]
 
@@ -67,7 +68,7 @@ for (let i = 1; i <= 15; i++) {
     }
 
 }
-
+//<--- Spil Kode! --->//
 //terningerne
 const turn = document.getElementById("turn");
 const roll = document.getElementById("roll");
@@ -95,7 +96,7 @@ function rollDices() {
     }
 }
 let turnValue = 0;
-
+// functionen der bliver kørt man trykker på roll
 function rolled() {
     turnValue++;
     if (turnValue == 1) {
@@ -117,8 +118,9 @@ function rolled() {
     }
 }
 
+//bool array mærker terning som værende holdt eller ikke
 let bool = [false, false, false, false, false];
-
+// functionen der bliver kørt man trykker på terning
 function terningAction(e) {
     if (turnValue)
         switch (e.target.id) {
@@ -215,6 +217,7 @@ function terningAction(e) {
 
             //start forfra funktion
             restart();
+            //done restarter kontrollere om spillet er færdig
             let done = true;
             for (let i = 0; i < valgtePoint.length; i++) {
                 if (valgtePoint[i] == -1) {
@@ -231,7 +234,7 @@ function terningAction(e) {
             }
         }
     }
-
+// restarter imellem kastene
     function restart() {
         turnValue = 0;
         document.getElementById("turn").innerHTML = "Klar til næste kast!";
