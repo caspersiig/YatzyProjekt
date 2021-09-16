@@ -118,6 +118,7 @@ function rolled() {
 }
 
 let bool = [false, false, false, false, false];
+
 function terningAction(e) {
     if (turnValue)
         switch (e.target.id) {
@@ -167,240 +168,241 @@ function terningAction(e) {
     }
 }
 
-roll.addEventListener("click", rolled);
 
-function start() {
-    if (turnValue == 1) {
-        for (let i = 0; i < terning.length; i++) {
-            terning[i].addEventListener("click", terningAction);
-        }
-    }
-}
+    roll.addEventListener("click", rolled);
 
-//spil point udregning
-//låser de point man har valgt -1 = false
-let valgtePoint = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-//håndtere når der bliver trukket på et input
-function clickHandler(params) {
-    let hit = document.getElementById(params.target.id)
-    // se om den er brugt
-    if (valgtePoint[hit.id.substring(5) - 1] == -1 && turnValue >= 1) {
-        valgtePoint[hit.id.substring(5) - 1] = Number.parseInt(hit.value);
-        hit.style.opacity = "0.2";
-
-        // SUM udregning
-        let result = 0;
-        for (let i = 0; i <= 5; i++) {
-            if (valgtePoint[i] != -1)
-                result += valgtePoint[i]
-        }
-        console.log(result)
-        document.getElementById("sum").value = result
-
-        //BONUS udregning
-        if (result > 63) {
-            document.getElementById("bonus").value = 50;
-        }
-
-        //total udregning
-        result = 0;
-        for (let i = 0; i <= 14; i++) {
-            if (valgtePoint[i] != -1)
-                result += valgtePoint[i]
-        }
-        result += Number.parseInt(document.getElementById("bonus").value);
-        document.getElementById("total").value = result;
-
-        //start forfra funktion
-        restart();
-        let done = true;
-        for (let i = 0; i < valgtePoint.length; i++) {
-            if (valgtePoint[i] == -1) {
-                done = false;
-            }
-        }
-        if (done) {
-            window.confirm("Scored: " + result)
-            valgtePoint = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-            for (let i = 0; i <= 14; i++) {
-                document.getElementById("input" + (i + 1)).style.opacity = "1";
-
+    function start() {
+        if (turnValue == 1) {
+            for (let i = 0; i < terning.length; i++) {
+                terning[i].addEventListener("click", terningAction);
             }
         }
     }
-}
 
-function restart() {
-    turnValue = 0;
-    document.getElementById("turn").innerHTML = "Klar til næste kast!";
-    for (let i = 0; i < bool.length; i++) {
-        bool[i] = false;
-    }
-    for (let i = 0; i < toss.length; i++) {
-        toss[i] = 0;
-        terning[i].firstChild.src = terningØjne[0];
-        terning[i].firstChild.style.opacity = "1";
-    }
-    udregnPoint(toss)
+    //spil point udregning
+    //låser de point man har valgt -1 = false
+    let valgtePoint = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+    //håndtere når der bliver trukket på et input
+    function clickHandler(params) {
+        let hit = document.getElementById(params.target.id)
+        // se om den er brugt
+        if (valgtePoint[hit.id.substring(5) - 1] == -1 && turnValue >= 1) {
+            valgtePoint[hit.id.substring(5) - 1] = Number.parseInt(hit.value);
+            hit.style.opacity = "0.2";
 
-}
-//udregner point til kastet
-function udregnPoint(terningeSlag) {
-    //første 6 er 
-    for (let i = 1; i <= 6; i++) {
-        if (valgtePoint[i - 1] == -1) {
-            let element = document.getElementById("input" + i)
+            // SUM udregning
             let result = 0;
-            for (let j = 0; j < terningeSlag.length; j++) {
-                if (terningeSlag[j] == i) {
-                    result += i;
+            for (let i = 0; i <= 5; i++) {
+                if (valgtePoint[i] != -1)
+                    result += valgtePoint[i]
+            }
+            console.log(result)
+            document.getElementById("sum").value = result
+
+            //BONUS udregning
+            if (result > 63) {
+                document.getElementById("bonus").value = 50;
+            }
+
+            //total udregning
+            result = 0;
+            for (let i = 0; i <= 14; i++) {
+                if (valgtePoint[i] != -1)
+                    result += valgtePoint[i]
+            }
+            result += Number.parseInt(document.getElementById("bonus").value);
+            document.getElementById("total").value = result;
+
+            //start forfra funktion
+            restart();
+            let done = true;
+            for (let i = 0; i < valgtePoint.length; i++) {
+                if (valgtePoint[i] == -1) {
+                    done = false;
                 }
             }
-            element.value = result;
-        }
+            if (done) {
+                window.confirm("Scored: " + result)
+                valgtePoint = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+                for (let i = 0; i <= 14; i++) {
+                    document.getElementById("input" + (i + 1)).style.opacity = "1";
 
-    }
-
-    // sikkert en bedre løsning
-    if (valgtePoint[7 - 1] == -1)
-        document.getElementById("input7").value = findPair(terningeSlag)
-    if (valgtePoint[8 - 1] == -1)
-        document.getElementById("input8").value = findTwoPairs(terningeSlag)
-    if (valgtePoint[9 - 1] == -1)
-        document.getElementById("input9").value = findThreeSame(terningeSlag)
-    if (valgtePoint[10 - 1] == -1)
-        document.getElementById("input10").value = findFourSame(terningeSlag)
-    if (valgtePoint[11 - 1] == -1)
-        document.getElementById("input11").value = findFullhouse(terningeSlag)
-    if (valgtePoint[12 - 1] == -1)
-        document.getElementById("input12").value = findsmallStraigt(terningeSlag)
-    if (valgtePoint[13 - 1] == -1)
-        document.getElementById("input13").value = findLargeStraight(terningeSlag)
-    if (valgtePoint[14 - 1] == -1)
-        document.getElementById("input14").value = findChance(terningeSlag)
-    if (valgtePoint[15 - 1] == -1)
-        document.getElementById("input15").value = Yatzy(terningeSlag)
-
-}
-//udregninger til de forskellige point ting
-function findPair(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    let result = 0;
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-        if (array[terningeSlag[i]] >= 2 && result < terningeSlag[i] * 2) {
-            result = terningeSlag[i] * 2;
+                }
+            }
         }
     }
-    return result;
-}
 
-function findTwoPairs(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    let result = 0;
-    let pair = 0;
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-        if (array[terningeSlag[i]] == 2) {
-            result += terningeSlag[i] * 2;
-            pair += 1;
+    function restart() {
+        turnValue = 0;
+        document.getElementById("turn").innerHTML = "Klar til næste kast!";
+        for (let i = 0; i < bool.length; i++) {
+            bool[i] = false;
         }
+        for (let i = 0; i < toss.length; i++) {
+            toss[i] = 0;
+            terning[i].firstChild.src = terningØjne[0];
+            terning[i].firstChild.style.opacity = "1";
+        }
+        udregnPoint(toss)
+
     }
-    if (pair == 2) {
+    //udregner point til kastet
+    function udregnPoint(terningeSlag) {
+        //første 6 er 
+        for (let i = 1; i <= 6; i++) {
+            if (valgtePoint[i - 1] == -1) {
+                let element = document.getElementById("input" + i)
+                let result = 0;
+                for (let j = 0; j < terningeSlag.length; j++) {
+                    if (terningeSlag[j] == i) {
+                        result += i;
+                    }
+                }
+                element.value = result;
+            }
+
+        }
+
+        // sikkert en bedre løsning
+        if (valgtePoint[7 - 1] == -1)
+            document.getElementById("input7").value = findPair(terningeSlag)
+        if (valgtePoint[8 - 1] == -1)
+            document.getElementById("input8").value = findTwoPairs(terningeSlag)
+        if (valgtePoint[9 - 1] == -1)
+            document.getElementById("input9").value = findThreeSame(terningeSlag)
+        if (valgtePoint[10 - 1] == -1)
+            document.getElementById("input10").value = findFourSame(terningeSlag)
+        if (valgtePoint[11 - 1] == -1)
+            document.getElementById("input11").value = findFullhouse(terningeSlag)
+        if (valgtePoint[12 - 1] == -1)
+            document.getElementById("input12").value = findsmallStraigt(terningeSlag)
+        if (valgtePoint[13 - 1] == -1)
+            document.getElementById("input13").value = findLargeStraight(terningeSlag)
+        if (valgtePoint[14 - 1] == -1)
+            document.getElementById("input14").value = findChance(terningeSlag)
+        if (valgtePoint[15 - 1] == -1)
+            document.getElementById("input15").value = Yatzy(terningeSlag)
+
+    }
+    //udregninger til de forskellige point ting
+    function findPair(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        let result = 0;
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
+            if (array[terningeSlag[i]] >= 2 && result < terningeSlag[i] * 2) {
+                result = terningeSlag[i] * 2;
+            }
+        }
         return result;
     }
-    return 0;
-}
 
-function findThreeSame(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    let result = 0;
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-        if (array[terningeSlag[i]] >= 3 && result < terningeSlag[i] * 3) {
-            result = terningeSlag[i] * 3;
+    function findTwoPairs(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        let result = 0;
+        let pair = 0;
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
+            if (array[terningeSlag[i]] == 2) {
+                result += terningeSlag[i] * 2;
+                pair += 1;
+            }
         }
-    }
-    return result;
-}
-
-function findFourSame(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    let result = 0;
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-        if (array[terningeSlag[i]] >= 4 && result < terningeSlag[i] * 4) {
-            result = terningeSlag[i] * 4;
+        if (pair == 2) {
+            return result;
         }
+        return 0;
     }
-    return result;
-}
 
-function findFullhouse(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    let par = false;
-    let threesame = false;
-    let result = 0;
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-    }
-    for (let j = 1; j < array.length; j++) {
-        if (array[j] == 2) {
-            result += 2 * j;
-            par = true;
-        } else
-        if (array[j] == 3) {
-            result += 3 * j;
-            threesame = true;
+    function findThreeSame(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        let result = 0;
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
+            if (array[terningeSlag[i]] >= 3 && result < terningeSlag[i] * 3) {
+                result = terningeSlag[i] * 3;
+            }
         }
+        return result;
     }
-    if (par && threesame) return result
-    return 0;
-}
 
-function findsmallStraigt(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-    }
-    for (let j = 1; j < array.length - 1; j++) {
-        if (array[j] == 0) {
-            return 0;
+    function findFourSame(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        let result = 0;
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
+            if (array[terningeSlag[i]] >= 4 && result < terningeSlag[i] * 4) {
+                result = terningeSlag[i] * 4;
+            }
         }
+        return result;
     }
-    return 15;
-}
 
-function findLargeStraight(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-    }
-    for (let j = 2; j < array.length; j++) {
-        if (array[j] == 0) {
-            return 0;
+    function findFullhouse(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        let par = false;
+        let threesame = false;
+        let result = 0;
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
         }
-    }
-    return 20;
-}
-
-function findChance(terningeSlag) {
-    let result = 0;
-    for (let i = 0; i < terningeSlag.length; i++) {
-        result += terningeSlag[i]
-    }
-    return result;
-}
-
-function Yatzy(terningeSlag) {
-    let array = [0, 0, 0, 0, 0, 0, 0]
-    let result = 0;
-    for (let i = 0; i < terningeSlag.length; i++) {
-        array[terningeSlag[i]] += 1;
-        if (array[terningeSlag[i]] >= 5 && result < terningeSlag[i] * 5) {
-            result = terningeSlag[i] * 5;
+        for (let j = 1; j < array.length; j++) {
+            if (array[j] == 2) {
+                result += 2 * j;
+                par = true;
+            } else
+            if (array[j] == 3) {
+                result += 3 * j;
+                threesame = true;
+            }
         }
+        if (par && threesame) return result
+        return 0;
     }
-    if (result) return 50;
-    return 0;
-}
+
+    function findsmallStraigt(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
+        }
+        for (let j = 1; j < array.length - 1; j++) {
+            if (array[j] == 0) {
+                return 0;
+            }
+        }
+        return 15;
+    }
+
+    function findLargeStraight(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
+        }
+        for (let j = 2; j < array.length; j++) {
+            if (array[j] == 0) {
+                return 0;
+            }
+        }
+        return 20;
+    }
+
+    function findChance(terningeSlag) {
+        let result = 0;
+        for (let i = 0; i < terningeSlag.length; i++) {
+            result += terningeSlag[i]
+        }
+        return result;
+    }
+
+    function Yatzy(terningeSlag) {
+        let array = [0, 0, 0, 0, 0, 0, 0]
+        let result = 0;
+        for (let i = 0; i < terningeSlag.length; i++) {
+            array[terningeSlag[i]] += 1;
+            if (array[terningeSlag[i]] >= 5 && result < terningeSlag[i] * 5) {
+                result = terningeSlag[i] * 5;
+            }
+        }
+        if (result) return 50;
+        return 0;
+    }
