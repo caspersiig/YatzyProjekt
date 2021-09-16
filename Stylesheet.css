@@ -9,7 +9,12 @@ body {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: repeat(2, 50%);
+}
 
+@media (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(1, 100%);
+    }
 }
 
 /*header top delen*/

@@ -1,12 +1,14 @@
 const spilletbody = document.getElementsByClassName("spillet")
+//skriver teksten til labelsne i spillet boxen
 const stringArray = ["1-s", "2-s", "3-s", "4-s", "5-s", "6-s", "One pair", "Two pairs", "Three same", "Four same", "Full house", "Small straight", "Large straight", "Chance", "Yazty"]
 
 for (let i = 1; i <= 15; i++) {
+    //laver og sætter paragraf til teksten yderst til højre
     let element = document.createElement("p");
     element.innerHTML = stringArray[i - 1];
     element.style.margin = "auto"
     spilletbody[0].appendChild(element);
-
+    //laver input fælderne til point tælningen
     element = document.createElement("input");
     element.id = "input" + i;
     element.setAttribute("readonly", "readonly")
@@ -17,6 +19,7 @@ for (let i = 1; i <= 15; i++) {
     spilletbody[0].appendChild(element);
 
     if (i == 5) {
+        //laver en div med input og paragraph til sum
         const div = document.createElement("div");
         div.style.maxWidth = "100%";
         element = document.createElement("input");
@@ -28,18 +31,20 @@ for (let i = 1; i <= 15; i++) {
         div.append(element)
         spilletbody[0].append(div);
     } else {
+        //laver usynlige p for at udfylde grid
         element = document.createElement("p");
-        element.innerHTML = "";
         spilletbody[0].appendChild(element);
     }
 
     if (i == 5) {
+        // laver div med label og input 
         const div = document.createElement("div");
         div.style.maxWidth = "100%";
         element = document.createElement("input");
         element.id = "bonus";
         element.setAttribute("readonly", "readonly")
         element.style.maxWidth = "40%"
+        element.value = 0;
         div.style.margin = "auto"
         div.innerHTML = "<label>Bonus: </label>"
         div.append(element)
@@ -56,6 +61,7 @@ for (let i = 1; i <= 15; i++) {
         div.append(element)
         spilletbody[0].append(div);
     } else {
+        //laver usynlige p for at udfylde grid
         element = document.createElement("p");
         spilletbody[0].appendChild(element);
     }
@@ -71,21 +77,20 @@ const terningØjne = ["billeder/dice-six-faces-one.svg", "billeder/dice-six-face
 
 // opbevarer de kast spilleren har kastet
 let toss = [];
-let selectedToss = [];
-
+//laver de tilfælde til kastene 1-6
 let randNum = () => {
     return Math.floor(Math.random() * 5) + 1;
 }
 
-// opbevarer værdien på den givende billede 
+// opbevarer værdien på tilfældig nummer
 let øjne = null;
 
 function rollDices() {
     for (let i = 0; i < terning.length; i++) {
-        if(!bool[i]){
+        if (!bool[i]) {
             øjne = randNum();
             let list = terning[i].firstChild.src = terningØjne[øjne];
-            toss[i] = øjne + 1;   
+            toss[i] = øjne + 1;
         }
     }
 }
@@ -113,84 +118,53 @@ function rolled() {
 }
 
 let bool = [false, false, false, false, false];
-
 function terningAction(e) {
-    switch (e.target.id) {
-        case "1":
-            if (!bool[0]) {
-                bool[0] = true;
-            } else {
-                bool[0] = false;
-            }
-            break;
-        case "2":
-            if (!bool[1]) {
-                bool[1] = true;
-            } else {
-                bool[1] = false;
-            }
-            break;
-        case "3":
-            if (!bool[2]) {
-                bool[2] = true;
-            } else {
-                bool[2] = false;
-            }
-            break;
-        case "4":
-            if (!bool[3]) {
-                bool[3] = true;
-            } else {
-                bool[3] = false;
-            }
-            break;
-        case "5":
-            if (!bool[4]) {
-                bool[4] = true;
-            } else {
-                bool[4] = false;
-            }
-            break;
-        default:
-            console.log("jeg er lidt dum;)");
-            break;
-    }
+    if (turnValue)
+        switch (e.target.id) {
+            case "1":
+                if (!bool[0]) {
+                    bool[0] = true;
+                } else {
+                    bool[0] = false;
+                }
+                break;
+            case "2":
+                if (!bool[1]) {
+                    bool[1] = true;
+                } else {
+                    bool[1] = false;
+                }
+                break;
+            case "3":
+                if (!bool[2]) {
+                    bool[2] = true;
+                } else {
+                    bool[2] = false;
+                }
+                break;
+            case "4":
+                if (!bool[3]) {
+                    bool[3] = true;
+                } else {
+                    bool[3] = false;
+                }
+                break;
+            case "5":
+                if (!bool[4]) {
+                    bool[4] = true;
+                } else {
+                    bool[4] = false;
+                }
+                break;
+            default:
+                console.log("Vi savner dumle!;)");
+                break;
+        }
     if (e.target.id == 1 && bool[0] || e.target.id == 2 && bool[1] || e.target.id == 3 && bool[2] || e.target.id == 4 && bool[3] || e.target.id == 5 && bool[4]) {
         e.target.style.opacity = "0.2";
-        e.target.setAttribute("selected", true);
     } else {
         e.target.style.opacity = "1";
-        e.target.setAttribute("selected", false);
     }
-
-    let index = e.target.id - 1;
-    if (turnValue == 1) {
-        if (e.target.getAttribute("selected") === "true") {
-            e.target.setAttribute("selected", false);
-            selectedToss[index] = toss[index];
-        } else {
-            e.target.setAttribute("selected", true);
-            // hvad skal værdien være når man fortryder sit valg? 0? und?
-            selectedToss[index] = 0;
-        }
-    } else if (turnValue == 2) {
-        if (e.target.getAttribute("selected") === "true") {
-            e.target.setAttribute("selected", false);
-            selectedToss[index] = toss[index];
-        } else {
-            e.target.setAttribute("selected", true);
-            selectedToss[index] = 0;
-        }
-    } else if (turnValue == 3) {
-        if (e.target.getAttribute("selected") === "true") {
-            e.target.setAttribute("selected", false);
-            selectedToss[index] = toss[index];
-        } else {
-            e.target.setAttribute("selected", true);
-            selectedToss[index] = 0;
-        }
-    }
-    console.log(selectedToss)
 }
 
 roll.addEventListener("click", rolled);
@@ -204,22 +178,21 @@ function start() {
 }
 
 //spil point udregning
-//låser de point man har valgt 0 = false
-let valgtePoint = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+//låser de point man har valgt -1 = false
+let valgtePoint = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 //håndtere når der bliver trukket på et input
 function clickHandler(params) {
     let hit = document.getElementById(params.target.id)
-    console.log(hit.value)
-    //22 95 55 88
     // se om den er brugt
-    if (valgtePoint[hit.id.substring(5) - 1] == 0) {
-        valgtePoint[hit.id.substring(5)- 1] = Number.parseInt(hit.value);
+    if (valgtePoint[hit.id.substring(5) - 1] == -1 && turnValue >= 1) {
+        valgtePoint[hit.id.substring(5) - 1] = Number.parseInt(hit.value);
         hit.style.opacity = "0.2";
 
         // SUM udregning
         let result = 0;
         for (let i = 0; i <= 5; i++) {
-            result += valgtePoint[i]
+            if (valgtePoint[i] != -1)
+                result += valgtePoint[i]
         }
         console.log(result)
         document.getElementById("sum").value = result
@@ -232,21 +205,50 @@ function clickHandler(params) {
         //total udregning
         result = 0;
         for (let i = 0; i <= 14; i++) {
-            result += valgtePoint[i]
+            if (valgtePoint[i] != -1)
+                result += valgtePoint[i]
         }
+        result += Number.parseInt(document.getElementById("bonus").value);
         document.getElementById("total").value = result;
-       
-        
-    }
 
-    //start forfra funktion
+        //start forfra funktion
+        restart();
+        let done = true;
+        for (let i = 0; i < valgtePoint.length; i++) {
+            if (valgtePoint[i] == -1) {
+                done = false;
+            }
+        }
+        if (done) {
+            window.confirm("Scored: " + result)
+            valgtePoint = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+            for (let i = 0; i <= 14; i++) {
+                document.getElementById("input" + (i + 1)).style.opacity = "1";
+
+            }
+        }
+    }
+}
+
+function restart() {
+    turnValue = 0;
+    document.getElementById("turn").innerHTML = "Klar til næste kast!";
+    for (let i = 0; i < bool.length; i++) {
+        bool[i] = false;
+    }
+    for (let i = 0; i < toss.length; i++) {
+        toss[i] = 0;
+        terning[i].firstChild.src = terningØjne[0];
+        terning[i].firstChild.style.opacity = "1";
+    }
+    udregnPoint(toss)
 
 }
 //udregner point til kastet
 function udregnPoint(terningeSlag) {
     //første 6 er 
     for (let i = 1; i <= 6; i++) {
-        if (!valgtePoint[i - 1]) {
+        if (valgtePoint[i - 1] == -1) {
             let element = document.getElementById("input" + i)
             let result = 0;
             for (let j = 0; j < terningeSlag.length; j++) {
@@ -260,23 +262,23 @@ function udregnPoint(terningeSlag) {
     }
 
     // sikkert en bedre løsning
-    if (!valgtePoint[7 - 1])
+    if (valgtePoint[7 - 1] == -1)
         document.getElementById("input7").value = findPair(terningeSlag)
-    if (!valgtePoint[8 - 1])
+    if (valgtePoint[8 - 1] == -1)
         document.getElementById("input8").value = findTwoPairs(terningeSlag)
-    if (!valgtePoint[9 - 1])
+    if (valgtePoint[9 - 1] == -1)
         document.getElementById("input9").value = findThreeSame(terningeSlag)
-    if (!valgtePoint[10 - 1])
+    if (valgtePoint[10 - 1] == -1)
         document.getElementById("input10").value = findFourSame(terningeSlag)
-    if (!valgtePoint[11 - 1])
+    if (valgtePoint[11 - 1] == -1)
         document.getElementById("input11").value = findFullhouse(terningeSlag)
-    if (!valgtePoint[12 - 1])
+    if (valgtePoint[12 - 1] == -1)
         document.getElementById("input12").value = findsmallStraigt(terningeSlag)
-    if (!valgtePoint[13 - 1])
+    if (valgtePoint[13 - 1] == -1)
         document.getElementById("input13").value = findLargeStraight(terningeSlag)
-    if (!valgtePoint[14 - 1])
+    if (valgtePoint[14 - 1] == -1)
         document.getElementById("input14").value = findChance(terningeSlag)
-    if (!valgtePoint[15 - 1])
+    if (valgtePoint[15 - 1] == -1)
         document.getElementById("input15").value = Yatzy(terningeSlag)
 
 }
