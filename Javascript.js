@@ -1,3 +1,5 @@
+//Lavet af Casper Siig Maibøll og Thomas Taulo Pedersen
+
 const spilletbody = document.getElementsByClassName("spillet")
 //<--- GUI KODE! --->//
 //skriver teksten til labelsne i spillet boxen
@@ -114,7 +116,7 @@ function rolled() {
         udregnPoint(toss)
     } else {
         turnValue = 3;
-        console.log("ingen ture tilbage");
+        console.log("ingen kast tilbage");
     }
 }
 
@@ -187,7 +189,7 @@ function terningAction(e) {
     //håndtere når der bliver trukket på et input
     function clickHandler(params) {
         let hit = document.getElementById(params.target.id)
-        // se om den er brugt
+        // ser om den er brugt
         if (valgtePoint[hit.id.substring(5) - 1] == -1 && turnValue >= 1) {
             valgtePoint[hit.id.substring(5) - 1] = Number.parseInt(hit.value);
             hit.style.opacity = "0.2";
@@ -198,7 +200,6 @@ function terningAction(e) {
                 if (valgtePoint[i] != -1)
                     result += valgtePoint[i]
             }
-            console.log(result)
             document.getElementById("sum").value = result
 
             //BONUS udregning
@@ -266,7 +267,7 @@ function terningAction(e) {
 
         }
 
-        // sikkert en bedre løsning
+        //de sidste 9
         if (valgtePoint[7 - 1] == -1)
             document.getElementById("input7").value = findPair(terningeSlag)
         if (valgtePoint[8 - 1] == -1)
