@@ -81,22 +81,19 @@ const terningØjne = ["billeder/dice-six-faces-one.svg", "billeder/dice-six-face
 // opbevarer de kast spilleren har kastet
 let toss = [];
 //laver de tilfælde til kastene 1-6
-let randNum = () => {
-    return Math.floor(Math.random() * 5) + 1;
-}
+let randNum = () => Math.floor(Math.random() * 5) + 1;
 
-// opbevarer værdien på tilfældig nummer
-let øjne = null;
-
+// slår med terningerne og sætter værdierne ind i toss arr
 function rollDices() {
     for (let i = 0; i < terning.length; i++) {
         if (!bool[i]) {
-            øjne = randNum();
-            let list = terning[i].firstChild.src = terningØjne[øjne];
+            let øjne = randNum();
+            terning[i].firstChild.src = terningØjne[øjne];
             toss[i] = øjne + 1;
         }
     }
 }
+
 let turnValue = 0;
 // functionen der bliver kørt man trykker på roll
 function rolled() {
@@ -248,8 +245,8 @@ function terningAction(e) {
             terning[i].firstChild.style.opacity = "1";
         }
         udregnPoint(toss)
-
     }
+    
     //udregner point til kastet
     function udregnPoint(terningeSlag) {
         //første 6 er 
